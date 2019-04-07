@@ -1,0 +1,136 @@
+/* before starting the program, it is important to make the file "beolvas.txt" as below, and the "megoldasok.txt", too, but leaving it empty
+	example:
+		i (number of equations)
+		a b c (variables)
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <math.h>
+
+#define KEY 2017
+
+typedef struct
+{
+        int j;
+        int a;
+        int b;
+        int c;
+        double x;
+        double y;
+}Adatok;
+
+int main()
+{
+        FILE *f;
+        FILE *g;
+        int shmid,i;
+        int disz;
+        Adatok *data;
+
+        shmid = shmget(KEY, 1024, IPC_CREAT | 00666);
+        if (shmid == -1)
+                perror("shmget()"), exit(-1);
+
+        data = (Adatok *)shmat(shmid, NULL, IPC_CREAT | 00666);
+        if (data == (void *)-1)
+                perror("shmat()"), exit(-1);
+
+        int j,a,b,c;
+        int u=0;
+
+        f = fopen("beolvas.txt","r+");
+        if (f == 0)
+        {
+                printf("\nCan't read the file!\n");
+                return 0;
+        }
+        else
+        {
+                fscanf(f,"%d\n",&data[i].j);
+                u=data[i].j;
+        }
+        fclose(f);
+
+        int szamok[u][3];
+
+        f = fopen("beolvas.txt","r+");
+        if (f==0)
+        {
+                printf("\nCan't read the file!\n");
+                return 0;
+        }
+        else
+        {
+                i=0;
+                while(!feof(f))
+                {
+                        if(i==0)
+                                fscanf(f,"%d \n",&j);
+
+                        fscanf(f,"%d ",&a);
+                        data[i].a=a;
+                        szamok[i][0]=data[i].a;
+
+                        fscanf(f,"%d ",&b);
+                        data[i].b=b;
+                        szamok[i][1]=data[i].b;
+
+                        if(i==u)
+                        {
+                                fscanf(f,"%d",&c);
+                                data[i].c=c;
+                                szamok[i][2]=data[i].c;
+                        }
+
+                        fscanf(f,"%d\n",&c);
+                        data[i].c=c;
+                        szamok[i][2]=data[i].c;
+
+                        i++;
+                }
+        }
+        fclose(f);
+
+        g = fopen("megoldasok.txt","w+");
+        if (g==0)
+        {
+                printf("\nCan't read the file!\n");
+                return 0;
+        }
+        else
+        {
+                for(i=0;i<=u-1;i++)
+                {
+                        disz = (szamok[i][1])*(szamok[i][1])-4*(szamok[i][0])*(szamok[i][2]);
+
+                        if(szamok[i][0]==0)
+                        {
+                                fprintf(g,"%d %d %d Not a quadratic equation!\n",szamok[i][0],szamok[i][1],szamok[i][2]);
+                        }
+                        else if(disz < 0)
+                                fprintf(g,"%d %d %d The equation does not haver real solutions!\n",szamok[i][0],szamok[i][1],szamok[i][2]);
+                        else if (disz == 0)
+                        {
+                                data->x = (double)(-szamok[i][1]+(sqrt(disz)))/(2*szamok[i][0]);
+                                fprintf(g,"%d %d %d %.2f\n",szamok[i][0],szamok[i][1],szamok[i][2],data->x);
+                        }
+                        else
+                        {
+                                data->x = (double)(-szamok[i][1]+(sqrt(disz)))/(2*szamok[i][0]);
+                                data->y = (double)(-szamok[i][1]-(sqrt(disz)))/(2*szamok[i][0]);
+                                fprintf(g,"%d %d %d %.2f %.2f\n",szamok[i][0],szamok[i][1],szamok[i][2],data->x,data->y);
+                        }
+                }
+        }
+        fclose(g);
+
+        shmctl(shmid, IPC_RMID, NULL);
+
+        printf("The program has ended, open the "megoldasok.txt" file!\n");
+
+        return 0;
+}
