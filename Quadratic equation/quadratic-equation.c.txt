@@ -1,4 +1,4 @@
-/* before starting the program, it is important to make the file "beolvas.txt" as below, and the "megoldasok.txt", too, but leaving it empty
+/* before starting the program, it is important to create the file "beolvas.txt" as below, and the "megoldasok.txt", too, but leaving it empty
 	example:
 		i (number of equations)
 		a b c (variables)
