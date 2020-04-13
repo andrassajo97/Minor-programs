@@ -1,0 +1,141 @@
+<?xml verson="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name = "project">
+		<xs:sequence>
+			<xs:element name="theme" type="xs:string"/>
+			<xs:element name="costs">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "projects">
+		<xs:sequence>
+			<xs:element name="project" type="project" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "name">
+		<xs:sequence>
+			<xs:element name="lastname" type="xs:string"/>
+			<xs:element name="firstname" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:complexType name = "person">
+		<xs:sequence>
+			<xs:element name="name" type="name"/>
+			<xs:element name="birth_date" type="date"/>
+		</xs:sequence>
+		<xs:attribute name="taxID" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "employee">
+		<xs:comlpexContent>
+			<xs:extension base="person">
+				<xs:attribute name="projectID" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:comlpexContent>
+	</xs:complexType>
+	
+	<xs:complexType name = "employees">
+		<xs:sequence>
+			<xs:element name="employee" type="employee" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "boss">
+		<xs:comlpexContent>
+			<xs:extension base="person">
+				<xs:attribute name="projectID" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:comlpexContent>
+	</xs:complexType>
+	
+	<xs:complexType name = "bosses">
+		<xs:sequence>
+			<xs:element name="boss" type="boss" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "developes">
+		<xs:attribute name="projectID" type="xs:string" use="required"/>
+		<xs:attribute name="taxID" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "develop">
+		<xs:sequence>
+			<xs:element name="developes" type="developes" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "monitores">
+		<xs:attribute name="projectID" type="xs:string" use="required"/>
+		<xs:attribute name="taxID" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "monitor">
+		<xs:sequence>
+			<xs:element name="monitores" type="monitores" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="company">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="projects"/>
+				<xs:element name="employees"/>
+				<xs:element name="bosses"/>
+				<xs:element name="developes"/>
+				<xs:element name="monitores"/>
+			</xs:sequence>
+		</xs:complexType>
+		
+		<xs:key name="employee_taxID_key">
+			<xs:selector xpath="./employees/employee"/>
+			<xs:field xpath="@taxID"/>
+		</xs:key>
+		
+		<xs:key name="boss_taxID_key">
+			<xs:selector xpath="./bosses/boss"/>
+			<xs:field xpath="@taxID"/>
+		</xs:key>
+		
+		<xs:key name="person_taxID_key">
+			<xs:selector xpath="./employees/employee|./bosses/boss"/>
+			<xs:field xpath="@taxID"/>
+		</xs:key>
+		
+		<xs:key name="projectID_key">
+			<xs:selector xpath="./projects/project"/>
+			<xs:field xpath="@projectID"/>
+		</xs:key>
+		
+		<xs:keyref name="developes_taxID_ikey" ref="employee_taxID_key">
+			<xs:selector xpath="./develope/developes"/>
+			<xs:field xpath="@taxID"/>
+		</xs:keyref>
+		
+		<xs:keyref name="developes_projectID_ikey" ref="project_projectID_key">
+			<xs:selector xpath="./develope/developes"/>
+			<xs:field xpath="@projectID"/>
+		</xs:keyref>
+		
+		<xs:keyref name="monitores_taxID_ikey" ref="boss_taxID_key">
+			<xs:selector xpath="./monitor/monitores"/>
+			<xs:field xpath="@taxID"/>
+		</xs:keyref>
+		
+		<xs:keyref name="monitores_projectID_ikey" ref="project_projectID_key">
+			<xs:selector xpath="./monitor/monitores"/>
+			<xs:field xpath="@projectID"/>
+		</xs:keyref>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,76 @@
+<?xml verson="1.0" encoding="UTF-8"?>
+<company>
+	<projects>
+		<project projectID="1234567">
+			<theme>Maps for Android</theme>
+			<costs>1500000 Ft</costs>
+		</project>
+		<project projectID="2132131">
+			<theme>Messages for Iphone</theme>
+			<costs>2100000 Ft</costs>
+		</project>
+		<project projectID="1148596">
+			<theme>Graphics software</theme>
+			<costs>400000 Ft</costs>
+		</project>
+		<project projectID="96658472">
+			<theme>Photo downloader</theme>
+			<costs>150000 Ft</costs>
+		</project>
+	</projects>
+	
+	<employees>
+		<employee taxID="887456854">
+			<name>
+				<lastname>Szabó</lastname>
+				<firstname>Máté</firstname>
+			</name>
+			<birthdate>1996.03.26</birthdate>
+		</employee>
+		<employee taxID="887855446">
+			<name>
+				<lastname>Heidrich</lastname>
+				<firstname>Máté</firstname>
+			</name>
+			<birthdate>1996.07.24</birthdate>
+		</employee>
+		<employee taxID="865656552">
+			<name>
+				<lastname>Gyenes</lastname>
+				<firstname>Gábor</firstname>
+			</name>
+			<birthdate>1996.10.15</birthdate>
+		</employee>
+		<employee taxID="811122351">
+			<name>
+				<lastname>Rási</lastname>
+				<firstname>László</firstname>
+			</name>
+			<birthdate>1998.05.08</birthdate>
+		</employee>
+	</employees>
+	
+	<bosses>
+		<boss taxID="88754865">
+			<name>
+				<lastname>Sajó</lastname>
+				<firstname>András</firstname>
+			</name>
+			<birthdate>1997.11.13<birthdate>
+		</boss>
+	</bosses>
+	
+	<develop>
+		<developes taxID="887456854" projectID="1234567">
+		<developes taxID="887855446" projectID="2132131">
+		<developes taxID="865656552" projectID="1148596">
+		<developes taxID="811122351" projectID="96658472">
+	</develop>
+	
+	<monitor>
+		<monitores taxID="88754865" projectID="1234567">
+		<monitores taxID="88754865" projectID="2132131">
+		<monitores taxID="88754865" projectID="1148596">
+		<monitores taxID="88754865" projectID="96658472">
+	</monitor>
+</company>

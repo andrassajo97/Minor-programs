@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:complexType name = "theme">
+		<xs:sequence>
+			<xs:element name="theme" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "project">
+		<xs:sequence>
+			<xs:element name="theme" type="xs:string"/>
+			<xs:element name="costs">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "projects">
+		<xs:sequence>
+			<xs:element name="project" type="project" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "name">
+		<xs:sequence>
+			<xs:element name="lastname" type="xs:string"/>
+			<xs:element name="firstname" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="person">
+		<xs:sequence>
+			<xs:element name="name" type="name"/>
+			<xs:element name="birthdate" type="xs:date"/>
+		</xs:sequence>
+		<xs:attribute name="taxID" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "employee">
+		<xs:complexContent>
+			<xs:extension base="person"/>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name = "employees">
+		<xs:sequence>
+			<xs:element name="employee" type="employee" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "boss">
+		<xs:complexContent>
+			<xs:extension base="person"/>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name = "bosses">
+		<xs:sequence>
+			<xs:element name="boss" type="boss" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "developes">
+		<xs:attribute name="taxID" type="xs:string" use="required"/>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "develop">
+		<xs:sequence>
+			<xs:element name="developes" type="developes" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name = "monitores">
+		<xs:attribute name="taxID" type="xs:string" use="required"/>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name = "monitor">
+		<xs:sequence>
+			<xs:element name="monitores" type = "monitores" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+	<xs:element name="company">
+		<xs:complexType>
+			<xs:sequence>
+						
+				<xs:element name="projects" type="projects"/>	
+				<xs:element name="employees" type="employees"/>
+				<xs:element name="bosses" type="bosses"/>
+				<xs:element name="develop" type="develop"/>	
+				<xs:element name="monitor" type = "monitor"/>
+				
+			</xs:sequence>
+		</xs:complexType>
+		
+		<xs:key name="employee_taxID_key">
+            <xs:selector xpath="./employees/employee"/>
+            <xs:field xpath="@taxID"/>
+        </xs:key>
+		
+		<xs:key name="boss_taxID_key">
+            <xs:selector xpath="./bosses/boss"/>
+            <xs:field xpath="@taxID"/>
+        </xs:key>
+		
+		<xs:key name="person_taxID_key">
+            <xs:selector xpath="./employees/employee|./bosses/boss"/>
+            <xs:field xpath="@taxID"/>
+        </xs:key>
+		
+		<xs:key name="project_ID_key">
+            <xs:selector xpath="./projects/project"/>
+            <xs:field xpath="@ID"/>
+        </xs:key>
+		
+		<xs:keyref name="developes_taxID_ikey" refer="employee_taxID_key">
+            <xs:selector xpath="./develop/developes"/>
+            <xs:field xpath="@taxID"/>
+        </xs:keyref>
+		
+		<xs:keyref name="developes_ID_ikey" refer="project_ID_key">
+            <xs:selector xpath="./develop/developes"/>
+            <xs:field xpath="@ID"/>
+        </xs:keyref>
+		
+		<xs:keyref name="monitores_taxID_ikey" refer="boss_taxID_key">
+            <xs:selector xpath="./monitor/monitores"/>
+            <xs:field xpath="@taxID"/>
+        </xs:keyref>
+		
+		<xs:keyref name="monitores_ID_ikey" refer="project_ID_key">
+            <xs:selector xpath="./develop/developes"/>
+            <xs:field xpath="@ID"/>
+        </xs:keyref>
+		
+	</xs:element>
+</xs:schema>
