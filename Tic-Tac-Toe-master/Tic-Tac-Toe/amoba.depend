@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1554672460 source:d:\program files\codeblocks\gyakorlás\amoba\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1483806341 source:d:\program files\codeblocks\gyakorlás\akasztofa\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
