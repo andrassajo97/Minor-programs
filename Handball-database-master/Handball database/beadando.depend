@@ -1,0 +1,69 @@
+# depslib dependency file v1.0
+1480419094 source:d:\program files\codeblocks\gyakorlás\beadando\main.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480280085 source:d:\program files\codeblocks\gyakorlás\beadando\kodresz..c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480534954 d:\program files\codeblocks\gyakorlás\beadando\header.h
+
+1480285541 source:d:\program files\codeblocks\gyakorlás\beadando\kodresz.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480540527 source:d:\program files\codeblocks\gyakorlás\beadando\gollovolista.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480529320 source:d:\program files\codeblocks\gyakorlás\beadando\ir.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480529321 source:d:\program files\codeblocks\gyakorlás\beadando\keres.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480538064 source:d:\program files\codeblocks\gyakorlás\beadando\menu.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480538725 source:d:\program files\codeblocks\gyakorlás\beadando\modositas.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480419653 source:d:\program files\codeblocks\gyakorlás\beadando\nevjegy.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480529321 source:d:\program files\codeblocks\gyakorlás\beadando\olvas.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
+1480540527 source:d:\program files\codeblocks\gyakorlás\beadando\tabella.c
+	<stdio.h>
+	"header.h"
+	<stdlib.h>
+	<string.h>
+
